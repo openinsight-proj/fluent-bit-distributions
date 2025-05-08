@@ -101,7 +101,7 @@ RUN make -j "$(getconf _NPROCESSORS_ONLN)"
 RUN install bin/fluent-bit /fluent-bit/bin/
 
 # Configuration files
-COPY /src/fluent-bit/conf/fluent-bit.conf \
+RUN cp /src/fluent-bit/conf/fluent-bit.conf \
     /src/fluent-bit/conf/parsers.conf \
     /src/fluent-bit/conf/parsers_ambassador.conf \
     /src/fluent-bit/conf/parsers_java.conf \
