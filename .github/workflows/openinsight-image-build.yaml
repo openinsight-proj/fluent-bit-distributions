@@ -49,7 +49,7 @@ jobs:
           id: build
           uses: docker/build-push-action@v6
           with:
-            file: ./dockerfiles/Dockerfile
+            file: Dockerfile
             context: .
             platforms: linux/amd64,linux/arm64
             target: production
