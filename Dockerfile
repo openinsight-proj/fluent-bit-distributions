@@ -101,14 +101,14 @@ RUN make -j "$(getconf _NPROCESSORS_ONLN)"
 RUN install bin/fluent-bit /fluent-bit/bin/
 
 # Configuration files
-COPY conf/fluent-bit.conf \
-    conf/parsers.conf \
-    conf/parsers_ambassador.conf \
-    conf/parsers_java.conf \
-    conf/parsers_extra.conf \
-    conf/parsers_openstack.conf \
-    conf/parsers_cinder.conf \
-    conf/plugins.conf \
+COPY /src/fluent-bit/conf/fluent-bit.conf \
+    /src/fluent-bit/conf/parsers.conf \
+    /src/fluent-bit/conf/parsers_ambassador.conf \
+    /src/fluent-bit/conf/parsers_java.conf \
+    /src/fluent-bit/conf/parsers_extra.conf \
+    /src/fluent-bit/conf/parsers_openstack.conf \
+    /src/fluent-bit/conf/parsers_cinder.conf \
+    /src/fluent-bit/conf/plugins.conf \
     /fluent-bit/etc/
 
 # Generate schema and include as part of the container image
