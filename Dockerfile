@@ -63,7 +63,7 @@ RUN echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/
 WORKDIR /src/fluent-bit/
 
 ## download archive
-ADD https://github.com/fluent/fluent-bit/archive/v4.0.2.tar.gz fluentbit.tar.gz
+ADD https://github.com/fluent/fluent-bit/archive/v4.0.1.tar.gz fluentbit.tar.gz
 RUN tar -zxvf fluentbit.tar.gz -C . && mv fluent-bit-*/* ./
 
 # We split the builder setup out so people can target it or use as a base image without doing a full build.
@@ -179,7 +179,7 @@ RUN find /dpkg/ -type d -empty -delete && \
 
 # We want latest at time of build
 # hadolint ignore=DL3006
-FROM release-ci.daocloud.io/gcr.m.daocloud.io/distroless/cc-debian12 AS production
+FROM distroless/cc-debian12 AS production
 ARG RELEASE_VERSION
 ENV FLUENT_BIT_VERSION=${RELEASE_VERSION}
 LABEL description="Fluent Bit multi-architecture container image" \
