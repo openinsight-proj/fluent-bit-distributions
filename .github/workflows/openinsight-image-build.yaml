@@ -1,0 +1,68 @@
+name: Build images for all architectures
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    paths:
+      - 'dockerfiles/Dockerfile'
+      - 'conf/**'
+
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: The code to build so a commit, branch, etc. The container image will be ghcr.io/openinsight-proj/fluent-bit:<this value>.
+        required: true
+        default: "4.0.1"
+
+jobs:
+    pr-image-tests-build-images:
+      name: PR - Buildkit docker build test
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        # We do not push and this allows simpler workflow running for forks too
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Extract metadata from Github
+          id: meta
+          uses: docker/metadata-action@v5
+          with:
+            images: ghcr.io/openinsight-proj/fluent-bit
+            tags: |
+              raw,${{ inputs.ref }}-jemalloc-off
+
+        - name: Login to GitHub Package Registry
+          uses: docker/login-action@v2
+          with:
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
+            password: ${{ secrets.ACTIONS_TOKEN }}
+
+        - name: Build the multi-arch images
+          id: build
+          uses: docker/build-push-action@v6
+          with:
+            file: ./dockerfiles/Dockerfile
+            context: .
+            platforms: linux/amd64,linux/arm64
+            target: production
+            build-args: |
+              RELEASE_VERSION=${{ inputs.ref }}
+            provenance: false
+            push: true
+            load: false
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
+
+        - name: Sanity check it runs
+          # We do this for a simple check of dependencies
+          run: |
+            docker run --rm -t ${{ steps.meta.outputs.tags }} --help
+          shell: bash
