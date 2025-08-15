@@ -14,7 +14,7 @@ on:
       ref:
         description: The code to build so a commit, branch, etc. The container image will be ghcr.io/openinsight-proj/fluent-bit:<this value>.
         required: true
-        default: "4.0.1"
+        default: "4.0.7"
 
 jobs:
     pr-image-tests-build-images:
