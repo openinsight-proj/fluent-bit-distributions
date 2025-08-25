@@ -85,7 +85,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           message="Update the Fluentbit version to $VERSION"
-          body="Update the Fluentbit version to \`$VERSION\`. \n # ⚠️Changelog: \n View on GitHub: https://github.com/fluent/fluent-bit/releases/tag/v\`$VERSION\` "
+          body="Update the Fluentbit version to \`$VERSION\`. \n # ⚠️Changelog: \n View on GitHub: https://github.com/fluent/fluent-bit/releases/tag/v$VERSION "
           branch="openinsightbot/update-fluentbit-version-to-${VERSION}"
 
           git config user.name 'openinsightbot'
