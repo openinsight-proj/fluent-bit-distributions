@@ -84,9 +84,9 @@ jobs:
           # not using secrets.GITHUB_TOKEN since pull requests from that token do not run workflows
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
-          message="Update the OpenTelemetry otel extension version to $VERSION"
-          body="Update the OpenTelemetry otel extension version to \`$VERSION\`. \n # ⚠️Changelog: \n View on GitHub: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v\`$VERSION\` "
-          branch="openinsightbot/update-opentelemetry-extension-to-${VERSION}"
+          message="Update the Fluentbit version to $VERSION"
+          body="Update the Fluentbit version to \`$VERSION\`. \n # ⚠️Changelog: \n View on GitHub: https://github.com/fluent/fluent-bit/releases/tag/v\`$VERSION\` "
+          branch="openinsightbot/update-fluentbit-version-to-${VERSION}"
 
           git config user.name 'openinsightbot'
           git config user.email 'openinsightbot@users.noreply.github.com'
