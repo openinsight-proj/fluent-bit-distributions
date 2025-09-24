@@ -11,7 +11,7 @@
 # docker buildx create --name builder --use
 # docker buildx inspect --bootstrap
 # Set this to the current release version: it gets done so as part of the release.
-ARG RELEASE_VERSION=4.0.10
+ARG RELEASE_VERSION=4.1.0
 
 # For multi-arch builds - assumption is running on an AMD64 host
 FROM multiarch/qemu-user-static:x86_64-arm AS qemu-arm32
@@ -61,7 +61,7 @@ RUN echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/
 WORKDIR /src/fluent-bit/
 
 ## download archive
-ADD https://github.com/fluent/fluent-bit/archive/v4.0.10.tar.gz fluentbit.tar.gz
+ADD https://github.com/fluent/fluent-bit/archive/v4.1.0.tar.gz fluentbit.tar.gz
 RUN tar -zxvf fluentbit.tar.gz -C . && mv fluent-bit-*/* ./
 
 # We split the builder setup out so people can target it or use as a base image without doing a full build.
